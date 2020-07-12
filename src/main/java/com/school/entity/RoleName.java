@@ -1,7 +1,8 @@
 package com.school.entity;
 
 public enum  RoleName {
-    ROLE_USER,
-    ROLE_PM,
+    ROLE_STUDENT,
+    ROLE_PROFESSOR,
+    ROLE_SECRETARY,
     ROLE_ADMIN
 }

@@ -57,15 +57,15 @@ public class LoginServiceImpl implements ILoginService{
 			switch(role.getName()) {
 			case ROLE_ADMIN:
 				rolesDtoList.add(new RoleDto(RoleName.ROLE_ADMIN));
-				System.out.print("admin");
 				break;
-			case ROLE_PM:
-				rolesDtoList.add(new RoleDto(RoleName.ROLE_PM));
-				System.out.print("Pm");
+			case ROLE_SECRETARY:
+				rolesDtoList.add(new RoleDto(RoleName.ROLE_SECRETARY));
+				break;
+			case ROLE_PROFESSOR:
+				rolesDtoList.add(new RoleDto(RoleName.ROLE_PROFESSOR));
 				break;
 			default:
-				rolesDtoList.add(new RoleDto(RoleName.ROLE_USER));
-				System.out.print("User");
+				rolesDtoList.add(new RoleDto(RoleName.ROLE_STUDENT));
 				break;
 			}
 		}

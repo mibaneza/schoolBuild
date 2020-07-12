@@ -60,18 +60,22 @@ public class UserServiceImpl implements IUserService{
 		    			final Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
 		                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
 		    			roles.add(adminRole);
-		    			
 		    			break;
-		    		case "pm":
-		    			final Role pmRole = roleRepository.findByName(RoleName.ROLE_PM)
+		    		case "secret":
+		    			final Role secretRole = roleRepository.findByName(RoleName.ROLE_SECRETARY)
 		                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-		            	roles.add(pmRole);
+		    			roles.add(secretRole);
+		    			break;
+		    		case "prof":
+		    			final Role profRole = roleRepository.findByName(RoleName.ROLE_PROFESSOR)
+		                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+		            	roles.add(profRole);
 		            	
 		    			break;
 		    		default:
-		    			final Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+		    			final Role studdRole = roleRepository.findByName(RoleName.ROLE_STUDENT)
 		                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-		        		roles.add(userRole);        			
+		        		roles.add(studdRole);        			
 	        	}
 	        });
 	        

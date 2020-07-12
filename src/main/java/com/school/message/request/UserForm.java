@@ -40,7 +40,7 @@ public class UserForm {
 
 	private Boolean est;
     
-    private Set<String> role;
+    private Set<RoleForm> role;
 
     
     public String getLastname() {
@@ -114,14 +114,15 @@ public class UserForm {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public Set<String> getRole() {
-    	return this.role;
-    }
-    
-    public void setRole(Set<String> role) {
-    	this.role = role;
-    }
+
+	public Set<RoleForm> getRole() {
+		return role;
+	}
+
+	public void setRole(Set<RoleForm> role) {
+		this.role = role;
+	}
+ 
 
 	
 

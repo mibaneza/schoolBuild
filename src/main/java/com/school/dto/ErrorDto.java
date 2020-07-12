@@ -2,6 +2,7 @@ package com.school.dto;
 
 import java.io.Serializable;
 
+
 public class ErrorDto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

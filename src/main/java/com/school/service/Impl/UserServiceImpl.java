@@ -16,6 +16,7 @@ import com.school.entity.User;
 import com.school.exception.InternalServerErrorException;
 import com.school.exception.NotFountException;
 import com.school.exception.SchoolException;
+import com.school.message.request.RoleForm;
 import com.school.message.request.UserForm;
 import com.school.repository.IRoleRepository;
 import com.school.repository.IUserRepository;
@@ -48,11 +49,13 @@ public class UserServiceImpl implements IUserService{
 	        		userForm.getName(), userForm.getLastname(), userForm.getMotherslastname(),
 	        		userForm.getDatebirth(), userForm.getDni(), userForm.getSex(), userForm.getEst());
 	        
-	        Set<String> strRoles = userForm.getRole();
+	        Set<RoleForm> strRoles = userForm.getRole();
 	        Set<Role> roles = new HashSet<>();
 	        
+	       
+	        
 	        strRoles.forEach(role -> {
-	        	switch(role) {
+	        	switch(role.getRole()) {
 		    		case "admin":
 		    			final Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
 		                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));

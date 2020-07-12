@@ -10,6 +10,8 @@ import com.school.entity.User;
 @Repository
 public interface IUserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
+    Optional<String> findByPassword(String Password);
     Boolean existsByUsername(String username);
     Boolean existsByDni(Long dni);
+    User findByUsernameAndPassword(String username, String password);
 }

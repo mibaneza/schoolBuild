@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +24,12 @@ public class UserController {
 	
 	@Autowired
 	IUserService userService;
-
+	
+	//@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "create_user", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public SchoolResponse<String> registerUser(@Valid @RequestBody UserForm userForm) throws SchoolException {
 		return new SchoolResponse<>("Succes", String.valueOf(HttpStatus.OK), "OK",
 				userService.CreateUser(userForm));
-
 	} 
     
 }

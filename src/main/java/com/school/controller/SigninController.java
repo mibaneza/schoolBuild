@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.school.exception.SchoolException;
 import com.school.message.request.LoginForm;
+import com.school.message.response.JwtResponse;
+import com.school.message.response.JwtUserResponse;
 import com.school.message.response.SchoolResponse;
 import com.school.service.ILoginService;
 
@@ -26,10 +28,9 @@ public class SigninController {
 	
     
 	@RequestMapping(value = "login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public SchoolResponse<?> loginUser(@Valid @RequestBody LoginForm loginRequest) throws SchoolException {
-		return new SchoolResponse<>("Succes", String.valueOf(HttpStatus.OK), "OK",
+	public SchoolResponse<JwtUserResponse> loginUser(@Valid @RequestBody LoginForm loginRequest) throws SchoolException {
+		return new SchoolResponse<JwtUserResponse>("Succes", String.valueOf(HttpStatus.OK), "OK",
 				loginService.getJwtByLogin(loginRequest));
-
 	} 
 
 }

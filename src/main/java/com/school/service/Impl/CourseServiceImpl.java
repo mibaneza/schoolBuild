@@ -1,5 +1,6 @@
 package com.school.service.Impl;
 
+import com.school.service.util.mapper.CourseMapper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +79,18 @@ public class CourseServiceImpl implements ICourseService {
 		}
 
 		return new SmsValidator(result,listaOjbCourse);
+	}
+
+    @Override
+	public List<CourseForm> findAllCourse() throws SchoolException{
+				List<Course> courseEntitys = new ArrayList<Course>();
+		try {
+			courseEntitys = courseRepository.findAll();
+		} catch (final Exception e) {
+			LOGGER.error("INTERNAL_SERVER_ERROR");
+			throw new InternalServerErrorException("INTERNAL_SERVER_ERROR", "INTERNAL_SERVER_ERROR");
+		}
+		return CourseMapper.convertirCourseDtoList(courseEntitys);
 	}
 }
 

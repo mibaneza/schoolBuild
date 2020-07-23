@@ -20,21 +20,32 @@ import com.school.service.ICourseService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/")
 public class CourseController {
 	
 	@Autowired
 	ICourseService courseService;
 	
+
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "create_course", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public SchoolResponse<String> registerCourse(@Valid @RequestBody CourseForm courseForm) throws SchoolException {
 		return new SchoolResponse<>("Succes", String.valueOf(HttpStatus.OK), "OK",
 				courseService.createCourse(courseForm));
 	}
-	
+
+
+	@PreAuthorize("hasRole('ADMIN')")	
 	@RequestMapping(value = "create_courses", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public SchoolResponse<SmsValidator> addAllCourse(@RequestBody CourseFormArray courseFormArray) throws SchoolException {
 		return new SchoolResponse<>("Succes", String.valueOf(HttpStatus.OK), "OK",
 				courseService.createCourseArray(courseFormArray));
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(value = "courses", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public SchoolResponse<List<CourseForm>> readGetCourses() throws SchoolException {
+		return new SchoolResponse<>("Succes", String.valueOf(HttpStatus.OK), "OK",
+				courseService.findAllCourse());
 	}
 }	

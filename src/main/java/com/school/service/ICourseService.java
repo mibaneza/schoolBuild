@@ -10,5 +10,7 @@ public interface ICourseService {
 	String createCourse(final CourseForm courseForm) throws SchoolException;
 	
 	SmsValidator createCourseArray(final CourseFormArray courseFormArray) throws SchoolException;
-
+	
+	List<CourseForm> findAllCourse() throws SchoolException;
+	
 }

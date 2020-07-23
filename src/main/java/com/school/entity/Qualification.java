@@ -27,9 +27,10 @@ public class Qualification implements Serializable {
 	
 	private String description;
 	
-	private Long coursedetailid;
+	@Column(name = "fk_course_detail")
+	private Long fkcoursedetail;
 	
-	private Double nota;
+	private Double quantity;
 	
 	@Column(name = "fecha_insert")
 	@CreationTimestamp
@@ -45,11 +46,27 @@ public class Qualification implements Serializable {
 
 	public Qualification() {}
 
-	public Qualification(String description, Long coursedetailid, Double nota) {
+	
+
+	public Qualification(String description, Long fkcoursedetail, Double quantity) {
 		this.description = description;
-		this.coursedetailid = coursedetailid;
-		this.nota = nota;
+		this.fkcoursedetail = fkcoursedetail;
+		this.quantity = quantity;
 	}
+
+
+
+	public Long getFkcoursedetail() {
+		return fkcoursedetail;
+	}
+
+
+
+	public void setFkcoursedetail(Long fkcoursedetail) {
+		this.fkcoursedetail = fkcoursedetail;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -67,20 +84,14 @@ public class Qualification implements Serializable {
 		this.description = description;
 	}
 
-	public Long getCoursedetailid() {
-		return coursedetailid;
+
+
+	public Double getQuantity() {
+		return quantity;
 	}
 
-	public void setCoursedetailid(Long coursedetailid) {
-		this.coursedetailid = coursedetailid;
-	}
-
-	public Double getNota() {
-		return nota;
-	}
-
-	public void setNota(Double nota) {
-		this.nota = nota;
+	public void setQuantity(Double quantity) {
+		this.quantity = quantity;
 	}
 
 	public Date getFinsert() {

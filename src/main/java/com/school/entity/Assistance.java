@@ -31,7 +31,8 @@ public class Assistance implements Serializable {
 	
 	private Long delay;
 	
-	private Long groupids;
+	@Column(name = "fk_course_detail")
+	private Long fkcoursedetail;
 
 	
 	@Column(name = "fecha_insert")
@@ -43,23 +44,21 @@ public class Assistance implements Serializable {
 	@UpdateTimestamp
 	@Column(name = "fecha_update")
 	private Date fupdate;
-	
-	
 
-	public Assistance() {}
-  
-
-	public Assistance(Long id, Long lack, Long assistance, Long delay, Long groupids, Date finsert, Date fupdate) {
-	
+	public Assistance(Long id, Long lack, Long assistance, Long delay, Long fkcoursedetail, Date finsert,
+			Date fupdate) {
 		this.id = id;
 		this.lack = lack;
 		this.assistance = assistance;
 		this.delay = delay;
-		this.groupids = groupids;
+		this.fkcoursedetail = fkcoursedetail;
 		this.finsert = finsert;
 		this.fupdate = fupdate;
 	}
 
+
+	public Assistance() {}
+  
 
 	public Long getId() {
 		return id;
@@ -93,16 +92,13 @@ public class Assistance implements Serializable {
 		this.delay = delay;
 	}
 
-
-	public Long getGroupids() {
-		return groupids;
+	public Long getFkcoursedetail() {
+		return fkcoursedetail;
 	}
 
-
-	public void setGroupids(Long groupids) {
-		this.groupids = groupids;
+	public void setFkcoursedetail(Long fkcoursedetail) {
+		this.fkcoursedetail = fkcoursedetail;
 	}
-
 
 	public Date getFinsert() {
 		return finsert;

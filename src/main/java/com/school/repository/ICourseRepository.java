@@ -13,5 +13,6 @@ public interface ICourseRepository extends JpaRepository<Course, Long> {
 	Optional<Course> findByCoursename(String coursename);
 	
 	Boolean existsByCoursename(String coursename);
+	
 
 }

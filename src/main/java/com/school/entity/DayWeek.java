@@ -31,13 +31,14 @@ public class DayWeek implements Serializable{
 	@Column(name = "name_day_week")
 	private String namedayweek;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "day_week", referencedColumnName = "id")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "dayweek")
 	private List<Horary> horary= new ArrayList<>();
 	
 	public DayWeek() {}	
 
-	public DayWeek(String namedayweek) {
+	public DayWeek(Long id,String namedayweek) {
+		this.id = id;
 		this.namedayweek = namedayweek;
 	}
 

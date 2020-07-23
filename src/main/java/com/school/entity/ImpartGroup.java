@@ -1,11 +1,23 @@
 package com.school.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,27 +30,67 @@ public class ImpartGroup implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	private Long impartid;
+	@Column(name = "fk_degree")
+	private Long fkdegree;
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "fk_classroom", nullable = false)
+	private Classroom fkclassroom;
 	
-	private Long aulaid;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "fk_impart", nullable = false)
+	private Impart impart;
 	
-	private Long horaryid;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "impart_group_horary", 
+	joinColumns = @JoinColumn(name = "impartgroup_id"), 
+	inverseJoinColumns = @JoinColumn(name = "horary_id"))
+	private List<Horary> horary = new ArrayList<>();
+	
+	//@OneToMany(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "fk_impart_group", referencedColumnName = "id")
+	
+	@OneToMany(cascade = CascadeType.ALL,
+	mappedBy = "impartgroup")
+	private List<CourseDetail> coursedetail= new ArrayList<>();
+	
+
+
+
+	public ImpartGroup(Long fkdegree, Classroom fkclassroom, Impart impart, List<Horary> horary) {
+		this.fkdegree = fkdegree;
+		this.fkclassroom = fkclassroom;
+		this.impart = impart;
+		this.horary = horary;
+	}
+
+	public ImpartGroup(Long id, Classroom fkclassroom, Impart impart, List<Horary> horary,
+			List<CourseDetail> coursedetail) {
+
+		this.id = id;
+		this.fkclassroom = fkclassroom;
+		this.impart = impart;
+		this.horary = horary;
+		this.coursedetail = coursedetail;
+	}
 
 	public ImpartGroup() {}
 
-	public ImpartGroup(Long id, Long impartid, Long aulaid, Long horaryid) {
-		this.id = id;
-		this.impartid = impartid;
-		this.aulaid = aulaid;
-		this.horaryid = horaryid;
+	public List<Horary> getHorary() {
+		return horary;
 	}
 
-	public Long getHoraryid() {
-		return horaryid;
+	public Long getFkdegree() {
+		return fkdegree;
 	}
 
-	public void setHoraryid(Long horaryid) {
-		this.horaryid = horaryid;
+	public void setFkdegree(Long fkdegree) {
+		this.fkdegree = fkdegree;
+	}
+
+	public void setHorary(List<Horary> horary) {
+		this.horary = horary;
 	}
 
 	public Long getId() {
@@ -49,20 +101,28 @@ public class ImpartGroup implements Serializable {
 		this.id = id;
 	}
 
-	public Long getImpartid() {
-		return impartid;
+	public Impart getImpart() {
+		return impart;
 	}
 
-	public void setImpartid(Long impartid) {
-		this.impartid = impartid;
+	public void setImpart(Impart impart) {
+		this.impart = impart;
 	}
 
-	public Long getAulaid() {
-		return aulaid;
+	public List<CourseDetail> getCoursedetail() {
+		return coursedetail;
 	}
 
-	public void setAulaid(Long aulaid) {
-		this.aulaid = aulaid;
+	public void setCoursedetail(List<CourseDetail> coursedetail) {
+		this.coursedetail = coursedetail;
+	}
+
+	public Classroom getFkclassroom() {
+		return fkclassroom;
+	}
+
+	public void setFkclassroom(Classroom fkclassroom) {
+		this.fkclassroom = fkclassroom;
 	}
 
 }

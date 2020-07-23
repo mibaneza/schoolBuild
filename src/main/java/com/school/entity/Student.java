@@ -16,14 +16,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table
+@Table(name = "student", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "dni" }) })
 public class Student implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -32,14 +35,20 @@ public class Student implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+
 	@NotBlank
+	@Size(min = 3, max = 150)
+	private String names;
+	
+	
 	@Size(min = 3, max = 50)
 	private String attorney;
 	
-	@Column(unique = true)
+	
+	@NaturalId
 	private Long dni;
 	
-	@NotBlank
+
 	@Size(min = 3, max = 50)
 	private String reference;
 	
@@ -53,14 +62,12 @@ public class Student implements Serializable {
 	@Column(name = "fecha_update")
 	private Date fupdate;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "studentid", referencedColumnName = "id")
-	private List<Enrollment> matricula = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "fkstudent")
+	private List<Enrollment> enrollment = new ArrayList<>();
 	
-	public Student(Long id,  String attorney, Long dni,
+	public Student( String names, String attorney, Long dni,
 			String reference) {
-	
-		this.id = id;
+		this.names = names;
 		this.attorney = attorney;
 		this.dni = dni;
 		this.reference = reference;
@@ -68,9 +75,10 @@ public class Student implements Serializable {
 
 	public Student(){}
 
-	public Student(Long id, String attorney, Long dni,
+	public Student(Long id, String names, String attorney, Long dni,
 			String reference, Date finsert, Date fupdate) {
 		this.id = id;
+		this.names = names;
 		this.attorney = attorney;
 		this.dni = dni;
 		this.reference = reference;
@@ -79,6 +87,14 @@ public class Student implements Serializable {
 
 	}
 	
+	public String getNames() {
+		return names;
+	}
+
+	public void setNames(String names) {
+		this.names = names;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -127,11 +143,13 @@ public class Student implements Serializable {
 		this.fupdate = fupdate;
 	}
 
-	public List<Enrollment> getMatricula() {
-		return matricula;
+	public List<Enrollment> getEnrollment() {
+		return enrollment;
 	}
 
-	public void setMatricula(List<Enrollment> matricula) {
-		this.matricula = matricula;
+	public void setEnrollment(List<Enrollment> enrollment) {
+		this.enrollment = enrollment;
 	}
+
+	
 }

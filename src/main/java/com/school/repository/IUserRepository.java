@@ -13,5 +13,6 @@ public interface IUserRepository extends JpaRepository<User, Long> {
     Optional<String> findByPassword(String Password);
     Boolean existsByUsername(String username);
     Boolean existsByDni(Long dni);
+    User findByDni(Long dni);
     User findByUsernameAndPassword(String username, String password);
 }

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,7 +37,7 @@ public class Enrollment implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true)
+	@NaturalId
 	private String registrationnumber;
 	
 	@NotBlank
@@ -46,14 +47,18 @@ public class Enrollment implements Serializable {
 	@NotBlank
 	@Size(min = 3, max = 200)
 	private String observations;
+
+
+	@ManyToOne
+	@JoinColumn(name = "fk_student", nullable = false)
+	private Student fkstudent;
 	
-	private Long studentid;
-	
-	private Long degreeid;
+	@Column(name = "fk_degree")
+	private Long fkdegree;
 	
 	//@OneToMany(cascade = CascadeType.ALL)
-	@OneToOne(mappedBy = "enrollment", cascade = CascadeType.ALL)
-	private GroupsEnrollment group ;
+	@OneToMany(mappedBy = "enrollment", cascade = CascadeType.ALL)
+	private List<CourseDetail> coursedetail = new ArrayList<>();
 	
 	@Column(name = "fecha_insert")
 	@CreationTimestamp
@@ -66,12 +71,23 @@ public class Enrollment implements Serializable {
 	private Date fupdate;
 
 	public Enrollment(String registrationnumber, String date,
-			String observations, Long studentid, Long degreeid) {
+			String observations, Student fkstudent, Long fkdegree,
+			List<CourseDetail> coursedetail) {
 		this.registrationnumber = registrationnumber;
 		this.date = date;
 		this.observations = observations;
-		this.studentid = studentid;
-		this.degreeid = degreeid;
+		this.fkstudent = fkstudent;
+		this.fkdegree = fkdegree;
+		this.coursedetail = coursedetail;
+	}
+
+	public Enrollment(String registrationnumber,  String date,
+			 String observations, Student fkstudent, Long fkdegree) {
+		this.registrationnumber = registrationnumber;
+		this.date = date;
+		this.observations = observations;
+		this.fkstudent = fkstudent;
+		this.fkdegree = fkdegree;
 	}
 
 	public Enrollment() {}
@@ -108,29 +124,28 @@ public class Enrollment implements Serializable {
 		this.observations = observations;
 	}
 
-	public Long getStudentid() {
-		return studentid;
+	public Student getFkstudent() {
+		return fkstudent;
 	}
 
-	public void setStudentid(Long studentid) {
-		this.studentid = studentid;
+	public void setFkstudent(Student fkstudent) {
+		this.fkstudent = fkstudent;
 	}
 
-	public Long getDegreeid() {
-		return degreeid;
+	public Long getFkdegree() {
+		return fkdegree;
 	}
 
-	public void setDegreeid(Long degreeid) {
-		this.degreeid = degreeid;
+	public void setFkdegree(Long fkdegree) {
+		this.fkdegree = fkdegree;
 	}
 
-
-	public GroupsEnrollment getGroup() {
-		return group;
+	public List<CourseDetail> getCoursedetail() {
+		return coursedetail;
 	}
 
-	public void setGroup(GroupsEnrollment group) {
-		this.group = group;
+	public void setCoursedetail(List<CourseDetail> coursedetail) {
+		this.coursedetail = coursedetail;
 	}
 
 	public Date getFinsert() {

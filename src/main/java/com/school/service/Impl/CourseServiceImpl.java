@@ -24,7 +24,7 @@ public class CourseServiceImpl implements ICourseService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CourseServiceImpl.class);
 	
-	SmsValidator message = new SmsValidator();
+
 	
 	@Autowired
 	private ICourseRepository courseRepository;
@@ -76,9 +76,8 @@ public class CourseServiceImpl implements ICourseService {
 				throw new InternalServerErrorException("INTERNAL_SERVER_ERROR", "INTERNAL_SERVER_ERROR");
 			}
 		}
-		message.setInvalid(listaOjbCourse);
-		message.setSms(result);
-		return message;
+
+		return new SmsValidator(result,listaOjbCourse);
 	}
 }
 

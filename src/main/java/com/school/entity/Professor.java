@@ -24,7 +24,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity
-@Table(name = "profesor", uniqueConstraints = { 
+@Table(name = "professor", uniqueConstraints = { 
 		@UniqueConstraint(columnNames = { "num" }) })
 public class Professor implements Serializable {
 	
@@ -42,8 +42,8 @@ public class Professor implements Serializable {
 	
 	private Long tutordegree;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_professor", referencedColumnName = "id")
+	@OneToMany(cascade = CascadeType.ALL,
+			mappedBy = "professorid")
 	private List<Impart> impart= new ArrayList<>();
 	
 	@Column(name = "fecha_insert")
@@ -60,23 +60,14 @@ public class Professor implements Serializable {
 	
 	
 
+
 	public Professor(String name, Long num, Long tutordegree) {
 		this.name = name;
 		this.num = num;
 		this.tutordegree = tutordegree;
+	
 	}
 
-
-	public Professor(Long id, String name, Long num, Long tutordegree, List<Impart> impart, Date finsert,
-			Date fupdate) {
-		this.id = id;
-		this.name = name;
-		this.num = num;
-		this.tutordegree = tutordegree;
-		this.impart = impart;
-		this.finsert = finsert;
-		this.fupdate = fupdate;
-	}
 
 
 

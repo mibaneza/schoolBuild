@@ -27,7 +27,7 @@ public class Level implements Serializable {
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "levelid", referencedColumnName = "id")
+	@JoinColumn(name = "fk_level", referencedColumnName = "id")
 	private List<Degree> degree = new ArrayList<>();
 	
 	

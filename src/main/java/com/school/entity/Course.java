@@ -16,16 +16,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
 @Entity
-@Table
+@Table(name = "course", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "coursename" }) })
 public class Course implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -36,11 +41,14 @@ public class Course implements Serializable {
 	
 	@NotBlank
 	@Size(min = 3, max = 50)
+	@NaturalId
 	private String coursename;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_course", referencedColumnName = "id")
-	private List<Impart> impart= new ArrayList<>();
+  //@JoinColumn(name = "fk_course", referencedColumnName = "id")
+	
+	@OneToMany(cascade = CascadeType.ALL,
+			mappedBy = "courseid")
+	private List<Impart> impart;
 	
 	@Column(name = "fecha_insert")
 	@CreationTimestamp

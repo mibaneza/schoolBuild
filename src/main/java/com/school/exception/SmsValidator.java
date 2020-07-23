@@ -11,6 +11,13 @@ public class SmsValidator {
 	
 	@JsonProperty("invalid")
 	private List<Object> invalid ;
+	
+	
+
+	public SmsValidator(String sms, List<Object> invalid) {
+		this.sms = sms;
+		this.invalid = invalid;
+	}
 
 	public String getSms() {
 		return sms;

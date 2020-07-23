@@ -9,23 +9,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class UserForm {
-    @NotBlank
+
     @Size(min = 3, max = 50)
     private String name;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
-    private String username;
-    
-    @NotBlank
+
     @Size(min = 6, max = 40)
     private String password;
     
-    @NotBlank
+
 	@Size(min = 3, max = 50)
 	private String lastname;
     
-	@NotBlank
+
 	@Size(min = 3, max = 50)
 	private String motherslastname;
 	
@@ -33,6 +29,11 @@ public class UserForm {
 	@Temporal(TemporalType.DATE)
 	private Date datebirth;
 	
+	private Long tutordegree;
+	
+	private String reference;
+	
+	private String attorney;
 
 	private Long dni;
 	
@@ -40,10 +41,36 @@ public class UserForm {
 
 	private Boolean est;
     
+
+	
     private Set<RoleForm> role;
 
     
-    public String getLastname() {
+    public Long getTutordegree() {
+		return tutordegree;
+	}
+
+	public void setTutordegree(Long tutordegree) {
+		this.tutordegree = tutordegree;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public String getAttorney() {
+		return attorney;
+	}
+
+	public void setAttorney(String attorney) {
+		this.attorney = attorney;
+	}
+
+	public String getLastname() {
 		return lastname;
 	}
 
@@ -97,14 +124,6 @@ public class UserForm {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {

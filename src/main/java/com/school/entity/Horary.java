@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,10 +21,12 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
-@Table
+@Table(name = "horary")
 public class Horary implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -32,14 +35,14 @@ public class Horary implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "day_week")
-	private Long dayweek;
+	@ManyToOne
+    @JoinColumn(name = "fk_day_week", nullable = false)
+	private DayWeek dayweek;
 	
-	@Column(name = "end_time")
-	private String endtime;
-	
-	@Column(name = "start_time")
-	private String starttime;
+	@ManyToOne
+    @JoinColumn(name = "fk_hour", nullable = false)
+	private Hour hours;
+
 	
 	@Column(name = "fecha_insert")
 	@CreationTimestamp
@@ -51,13 +54,32 @@ public class Horary implements Serializable {
 	@Column(name = "fecha_update")
 	private Date fupdate;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "horaryid", referencedColumnName = "id")
-	private List<ImpartGroup> impartGroup= new ArrayList<>();
-	
+	public Horary(Long id, DayWeek dayweek, Hour hours) {
+		this.id = id;
+		this.dayweek = dayweek;
+		this.hours = hours;
+	}
+	public Horary(DayWeek dayweek, Hour hours) {
+		this.dayweek = dayweek;
+		this.hours = hours;
+	}
 	public Horary() {}
 
+	public DayWeek getDayweek() {
+		return dayweek;
+	}
 
+	public void setDayweek(DayWeek dayweek) {
+		this.dayweek = dayweek;
+	}
+
+	public Hour getHours() {
+		return hours;
+	}
+
+	public void setHours(Hour hours) {
+		this.hours = hours;
+	}
 
 	public Long getId() {
 		return id;
@@ -65,22 +87,6 @@ public class Horary implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getEndtime() {
-		return endtime;
-	}
-
-	public void setEndtime(String endtime) {
-		this.endtime = endtime;
-	}
-
-	public String getStarttime() {
-		return starttime;
-	}
-
-	public void setStarttime(String starttime) {
-		this.starttime = starttime;
 	}
 
 	public Date getFinsert() {
@@ -99,14 +105,5 @@ public class Horary implements Serializable {
 		this.fupdate = fupdate;
 	}
 
-	public List<ImpartGroup> getImpartGroup() {
-		return impartGroup;
-	}
 
-	public void setImpartGroup(List<ImpartGroup> impartGroup) {
-		this.impartGroup = impartGroup;
-	}
-	
-	
-	
 }

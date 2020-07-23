@@ -2,6 +2,7 @@ package com.school.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -17,19 +18,25 @@ public class Degree implements Serializable {
 	
 	private String name;
 	
-	private Long levelid;
+    @Column(name = "fk_level")
+	private Long fklevel;
 
 	public Long getId() {
 		return id;
 	}
 	
-	public Degree() {}
-
-	public Degree(Long id, String name, Long levelid) {
+	
+	
+	public Degree(Long id, String name, Long fklevel) {
 		this.id = id;
 		this.name = name;
-		this.levelid = levelid;
+		this.fklevel = fklevel;
 	}
+
+
+
+	public Degree() {}
+
 
 	public void setId(Long id) {
 		this.id = id;
@@ -43,12 +50,12 @@ public class Degree implements Serializable {
 		this.name = name;
 	}
 
-	public Long getLevelid() {
-		return levelid;
+	public Long getFklevel() {
+		return fklevel;
 	}
 
-	public void setLevelid(Long levelid) {
-		this.levelid = levelid;
+	public void setFklevel(Long fklevel) {
+		this.fklevel = fklevel;
 	}
 
 }

@@ -12,7 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,14 +36,22 @@ public class CourseDetail implements Serializable {
 	
 	private String description;
 	
-	private Long groupid;
+	@ManyToOne
+	@JoinColumn(name = "fk_impart_group", nullable = false)
+	private ImpartGroup impartgroup;
 	
-	private Long impartid;
+	@ManyToOne
+	@JoinColumn(name = "fk_enrollment", updatable = false, nullable = false)
+	private Enrollment enrollment;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_course_detail", referencedColumnName = "id")
+	private List<Assistance> assistance = new ArrayList<>();
 	
 	private Long average;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "coursedetailid", referencedColumnName = "id")
+	@JoinColumn(name = "fk_course_detail", referencedColumnName = "id")
 	private List<Qualification> qualification = new ArrayList<>();
 
 	@Column(name = "fecha_insert")
@@ -54,16 +64,46 @@ public class CourseDetail implements Serializable {
 	@Column(name = "fecha_update")
 	private Date fupdate;
 	
-	
 
-	public CourseDetail() {}
 
-	public CourseDetail(String description, Long groupid, Long impartid, Long average) {
+	public CourseDetail(String description, ImpartGroup impartgroup, Enrollment enrollment, List<Assistance> assistance,
+			Long average, List<Qualification> qualification) {
 		this.description = description;
-		this.groupid = groupid;
-		this.impartid = impartid;
+		this.impartgroup = impartgroup;
+		this.enrollment = enrollment;
+		this.assistance = assistance;
+		this.average = average;
+		this.qualification = qualification;
+	}
+
+
+
+	public CourseDetail(String description, ImpartGroup impartgroup, Enrollment enrollment, Long average) {
+		this.description = description;
+		this.impartgroup = impartgroup;
+		this.enrollment = enrollment;
 		this.average = average;
 	}
+
+
+
+	public Enrollment getEnrollment() {
+		return enrollment;
+	}
+
+	public void setEnrollment(Enrollment enrollment) {
+		this.enrollment = enrollment;
+	}
+
+	public List<Assistance> getAssistance() {
+		return assistance;
+	}
+
+	public void setAssistance(List<Assistance> assistance) {
+		this.assistance = assistance;
+	}
+
+	public CourseDetail() {}
 
 	public Long getId() {
 		return id;
@@ -81,20 +121,12 @@ public class CourseDetail implements Serializable {
 		this.description = description;
 	}
 
-	public Long getGroupid() {
-		return groupid;
+	public ImpartGroup getImpartgroup() {
+		return impartgroup;
 	}
 
-	public void setGroupid(Long groupid) {
-		this.groupid = groupid;
-	}
-
-	public Long getImpartid() {
-		return impartid;
-	}
-
-	public void setImpartid(Long impartid) {
-		this.impartid = impartid;
+	public void setImpartgroup(ImpartGroup impartgroup) {
+		this.impartgroup = impartgroup;
 	}
 
 	public Long getAverage() {

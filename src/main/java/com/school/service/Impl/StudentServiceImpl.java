@@ -1,7 +1,9 @@
 package com.school.service.Impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import com.school.dto.Student.EnrollmentAllDto;
 import com.school.dto.Student.StudentsOneAll;
 import com.school.entity.Degree;
 import com.school.entity.Enrollment;
+import com.school.entity.Role;
 import com.school.entity.Student;
 import com.school.exception.InternalServerErrorException;
 import com.school.exception.NotFountException;
@@ -45,7 +48,10 @@ public class StudentServiceImpl implements IStudentService{
 	@Override
 	public String createStudent(UserForm userForm) throws SchoolException {
 	
-		userService.utilUser(userForm, userService.utilRole("student"));
+		Set<Role> roles = new HashSet<>();
+		roles.add(userService.utilRole("student"));
+		
+		userService.utilUser(userForm, roles);
 		
 		Student student = new Student(userForm.getName()+" "+userForm.getLastname(),
 				userForm.getAttorney(),

@@ -46,8 +46,9 @@ public class UserServiceImpl implements IUserService{
 		Set<Role> roles = new HashSet<>();
 
 		for (RoleForm roleForm : strRoles) {
-			roles.addAll(utilRole(roleForm.getRole()));
+			roles.add(utilRole(roleForm.getRole()));
 		}
+		
 		utilUser(userForm,roles);
 		
 		return "SUCCES RESGISTRATION";
@@ -82,28 +83,28 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public Set<Role> utilRole(String rolename) throws SchoolException {
-		Set<Role> roles = new HashSet<>();
+	public Role utilRole(String rolename) throws SchoolException {
+		Role roles = new Role();
 		switch (rolename) {
 		case "admin":
 			final Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
 					.orElseThrow(() -> new RuntimeException("Fail! -> Cause: ROLE_ADMIN Role not find."));
-			roles.add(adminRole);
+			roles = adminRole;
 			break;
 		case "secret":
 			final Role secretRole = roleRepository.findByName(RoleName.ROLE_SECRETARY)
 					.orElseThrow(() -> new RuntimeException("Fail! -> Cause: ROLE_SECRETARY Role not find."));
-			roles.add(secretRole);
+			roles = secretRole;
 			break;
 		case "prof":
 			final Role profRole = roleRepository.findByName(RoleName.ROLE_PROFESSOR)
 					.orElseThrow(() -> new RuntimeException("Fail! -> Cause: ROLE_PROFESSOR Role not find."));
-			roles.add(profRole);
+			roles = profRole;
 			break;
 		default:
 			final Role studRole = roleRepository.findByName(RoleName.ROLE_STUDENT)
 					.orElseThrow(() -> new RuntimeException("Fail! -> Cause: ROLE_STUDENT Role not find."));
-			roles.add(studRole);
+			roles = studRole;
 			break;
 		}
 		return roles;

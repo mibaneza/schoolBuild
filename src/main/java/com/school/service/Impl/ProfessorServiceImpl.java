@@ -68,8 +68,11 @@ public class ProfessorServiceImpl implements IProfessorService{
 
 	@Override
 	public String createProfessor(UserForm userForm) throws SchoolException {
+		
+		Set<Role> roles = new HashSet<>();
+		roles.add(userService.utilRole("prof"));
 				
-		userService.utilUser(userForm, userService.utilRole("prof"));
+		userService.utilUser(userForm, roles);
 		Professor profe = new Professor(
 				userForm.getName()+" "+userForm.getLastname(),
 				userForm.getDni(),

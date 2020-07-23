@@ -5,16 +5,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.school.message.request.CourseForm;
+import com.school.dto.CourseDto;
 import com.school.entity.Course;
 
 @Component("coursemapper")
 public class CourseMapper {
-	public static List<CourseForm> convertirCourseDtoList(List<Course> courses) {
-		List<CourseForm> courseForm = new ArrayList<>();
+	public static List<CourseDto> convertirCourseDtoList(List<Course> courses) {
+		List<CourseDto> classroomDto = new ArrayList<>();
 		for (Course course : courses) {
-			courseForm.add(new CourseForm(course.getCoursename()));
+			classroomDto.add(new CourseDto(course));
 		}
-		return courseForm;
+		return classroomDto;
 	}
 }

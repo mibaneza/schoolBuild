@@ -1,4 +1,4 @@
-package com.school.service.Impl;
+package com.school.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;

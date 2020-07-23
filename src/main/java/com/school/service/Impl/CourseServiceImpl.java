@@ -1,6 +1,5 @@
-package com.school.service.Impl;
+package com.school.service.impl;
 
-import com.school.service.util.mapper.CourseMapper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.school.dto.CourseDto;
 import com.school.entity.Course;
 import com.school.exception.InternalServerErrorException;
 import com.school.exception.SmsValidator;
@@ -18,6 +18,7 @@ import com.school.message.request.CourseForm;
 import com.school.message.request.CourseFormArray;
 import com.school.repository.ICourseRepository;
 import com.school.service.ICourseService;
+import com.school.service.util.mapper.CourseMapper;
 
 
 @Service
@@ -81,16 +82,16 @@ public class CourseServiceImpl implements ICourseService {
 		return new SmsValidator(result,listaOjbCourse);
 	}
 
-    @Override
-	public List<CourseForm> findAllCourse() throws SchoolException{
-				List<Course> courseEntitys = new ArrayList<Course>();
+	@Override
+	public List<CourseDto> findAllCourse() throws SchoolException {
+		List<Course> coursse = new ArrayList<>();
 		try {
-			courseEntitys = courseRepository.findAll();
+			coursse = courseRepository.findAll();
 		} catch (final Exception e) {
-			LOGGER.error("INTERNAL_SERVER_ERROR");
+			LOGGER.error("INTERNAL_SERVER_ERROR", e);
 			throw new InternalServerErrorException("INTERNAL_SERVER_ERROR", "INTERNAL_SERVER_ERROR");
 		}
-		return CourseMapper.convertirCourseDtoList(courseEntitys);
+		return CourseMapper.convertirCourseDtoList(coursse);
 	}
 }
 

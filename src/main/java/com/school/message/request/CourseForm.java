@@ -14,7 +14,6 @@ public class CourseForm {
 
 		this.coursename = coursename;
 	}
-	
 
 	public CourseForm() {}
 

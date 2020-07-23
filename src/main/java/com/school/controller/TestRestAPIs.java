@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestRestAPIs {
-	
-	@GetMapping("/api/test/student")
+		@GetMapping("/api/test/student")
 	@PreAuthorize("hasRole('STUDENT') or hasRole('ADMIN')")
-	public String estuddentAccess() {
+	public String estudentAccess() {
 		return ">>> STUDENT Contents!";
 	}
 	
@@ -22,12 +21,12 @@ public class TestRestAPIs {
 	@GetMapping("/api/test/secrary")
 	@PreAuthorize("hasRole('SECRETARY') or hasRole('ADMIN')")
 	public String projectManagementAccess() {
-		return ">>> SECRETARY Management Project";
+		return ">>> Board Management Project";
 	}
 	
 	@GetMapping("/api/test/admin")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String adminAccess() {
-		return ">>> ADMIN Contents";
+		return ">>> Admin Contents";
 	}
 }

@@ -9,25 +9,25 @@ public class TestRestAPIs {
 	
 	@GetMapping("/api/test/student")
 	@PreAuthorize("hasRole('STUDENT') or hasRole('ADMIN')")
-	public String userAccess() {
-		return ">>> User Contents!";
+	public String estuddentAccess() {
+		return ">>> STUDENT Contents!";
 	}
 	
 	@GetMapping("/api/test/professor")
 	@PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN')")
-	public String userAccess() {
-		return ">>> User Contents!";
+	public String professorAccess() {
+		return ">>> PROFESSOR Contents!";
 	}
 
 	@GetMapping("/api/test/secrary")
 	@PreAuthorize("hasRole('SECRETARY') or hasRole('ADMIN')")
 	public String projectManagementAccess() {
-		return ">>> Board Management Project";
+		return ">>> SECRETARY Management Project";
 	}
 	
 	@GetMapping("/api/test/admin")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String adminAccess() {
-		return ">>> Admin Contents";
+		return ">>> ADMIN Contents";
 	}
 }

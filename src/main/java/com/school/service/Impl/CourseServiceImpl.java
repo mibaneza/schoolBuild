@@ -55,7 +55,7 @@ public class CourseServiceImpl implements ICourseService {
 		List<Course> listCourse = new ArrayList<>();
 		List<Course> listAllCourse = new ArrayList<>();
 		List<Object> listaOjbCourse = new ArrayList<>();
-		listCourse = courseFormArray.getArraycoruse();
+		listCourse = courseFormArray.getCourses();
 		String result = "Sign up failed";
 
 		for (Course courso : listCourse) {

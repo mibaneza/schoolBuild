@@ -7,15 +7,16 @@ import com.school.entity.Course;
 
 public class CourseFormArray {
 
-	private List<Course> arraycoruse = new ArrayList<>();
+	private List<Course> courses = new ArrayList<>();
 
-	public List<Course> getArraycoruse() {
-		return arraycoruse;
+	public List<Course> getCourses() {
+		return courses;
 	}
 
-	public void setArraycoruse(List<Course> arraycoruse) {
-		this.arraycoruse = arraycoruse;
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
 	}
+
 
 
 	

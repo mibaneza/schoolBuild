@@ -37,7 +37,7 @@ public class CourseController {
 				courseService.createCourse(courseForm));
 	}
 	
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "create_courses", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public SchoolResponse<SmsValidator> addAllCourse(@RequestBody CourseFormArray courseFormArray) throws SchoolException {
 		return new SchoolResponse<>("Succes", String.valueOf(HttpStatus.OK), "OK",
